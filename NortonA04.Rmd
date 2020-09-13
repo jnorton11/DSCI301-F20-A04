@@ -1,0 +1,32 @@
+---
+title: "Norton Assignment 4"
+author: "Jenny Norton"
+date: "9/12/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+Return to the iris data set included in R. Examine the distributions of Sepal.Length and Sepal.Width. Produce a graph (or two) which represent these distributions. What can you say about the variation of Sepal.Length and Sepal.Width?
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+str(iris)
+```
+
+```{r}
+hist(iris$Sepal.Length)
+```
+
+```{r}
+hist(iris$Sepal.Width)
+```
+
+
