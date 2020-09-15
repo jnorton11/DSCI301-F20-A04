@@ -22,11 +22,73 @@ str(iris)
 ```
 
 ```{r}
-hist(iris$Sepal.Length)
+hist(iris$Sepal.Length, 
+     labels = TRUE, 
+     ylim = c(0,35))
 ```
 
 ```{r}
-hist(iris$Sepal.Width)
+hist(iris$Sepal.Width,
+     labels = TRUE, 
+     ylim = c(0,40)) 
 ```
 
+Sepal Length is mostly between 4.5 and 6.5 in size whereas the Sepal Width is mostly 2.75 to 3.25.
+
+
+## Question 2
+
+Examine how the categorical variable Species affects the distribution of Sepal.Length and Sepal.Width. Produce a graph (or two) which shows clearly the relationship you would like to demonstrate. Can the covariation here help explain some of the patterns we saw in first exploration?
+
+```{r}
+iris %>%
+  group_by(Species) %>%
+  ggplot() +
+    geom_bar(aes(x = Sepal.Length, fill = Species), position = "dodge") +
+    labs(title = "Sepal Length by Species")
+```
+
+```{r}
+ggplot(data = iris) +
+  geom_boxplot(aes(x = Sepal.Length, y = Species)) +
+                 labs(title = "Sepal Length across Species",
+       x = "Sepal Length",
+       y = "Species")
+```
+
+```{r}
+ggplot(data = iris) +
+  geom_boxplot(aes(x = Sepal.Width, y = Species)) +
+                 labs(title = "Sepal Width across Species",
+       x = "Sepal Width",
+       y = "Species")
+```
+
+```{r}
+ggplot(data = iris,
+       aes(x = Sepal.Length,
+           y = Sepal.Width,
+           color = Species
+           )
+          ) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, formula = y~x)
+```
+
+The longer Sepal Length gets, the wider Sepal Width is.  The species Setosa seems to get wider faster in comparison to the other two species.
+
+## Question 3
+Examine the distribution of Sepal.Width now for data in only the species virginica in the data set. What can you say about the distribution?
+
+```{r}
+iris %>%
+  filter(Species == "virginica") %>%
+  ggplot() +
+  geom_histogram(aes(x = Sepal.Width, fill = Species), 
+        binwidth = .25) +
+  labs(title = "Sepal Width of Virginica Species",
+       x = "Sepal Width")
+```
+
+Virginica's Sepal Width is mostly 2.75 to 3.0.
 
