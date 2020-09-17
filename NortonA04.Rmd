@@ -35,6 +35,11 @@ hist(iris$Sepal.Width,
 
 Sepal Length is mostly between 4.5 and 6.5 in size whereas the Sepal Width is mostly 2.75 to 3.25.
 
+<span style="color: green; font-size: 14pt">*Comments:*  
+        * A histogram is a reasonable choice, although I notice you don't seem to have tried adjusting the bin sizes.
+        Also, you need to fix the documentation on the graph (particularly x-axis and main title labels) to be something more readable/informative.
+    </span>
+
 
 ## Question 2
 
@@ -42,11 +47,23 @@ Examine how the categorical variable Species affects the distribution of Sepal.L
 
 ```{r}
 iris %>%
-  group_by(Species) %>%
+  #group_by(Species) %>%
   ggplot() +
     geom_bar(aes(x = Sepal.Length, fill = Species), position = "dodge") +
     labs(title = "Sepal Length by Species")
 ```
+
+<span style="color: green; font-size: 14pt">*Comments:*  
+        * The group_by command here is not actually doing anything; I've commented it out to demonstrate (above).
+        * A bar plot is not really appropriate here--that would be for discrete data rather than continuous.  A histogram would work well, but I'd recommend separating the plots, like so:
+    </span>
+```{r}
+iris %>%
+  ggplot() +
+    geom_histogram(aes(x = Sepal.Length, fill = Species), binwidth=.3) +
+    facet_wrap( ~ Species, nrow = 3) +
+    labs(title = "Sepal Length by Species")
+```  
 
 ```{r}
 ggplot(data = iris) +
@@ -64,6 +81,10 @@ ggplot(data = iris) +
        y = "Species")
 ```
 
+<span style="color: green; font-size: 14pt">*Comments:*  
+        * Box plots are a really *good* choice for comparing distributions across different groups.
+    </span>
+
 ```{r}
 ggplot(data = iris,
        aes(x = Sepal.Length,
@@ -75,7 +96,15 @@ ggplot(data = iris,
   geom_smooth(method = "lm", se = FALSE, formula = y~x)
 ```
 
+<span style="color: green; font-size: 14pt">*Comments:*  
+        * But this plot does not really show information about the distributions of sepal width and length--this actually shows information about the *covariation* of these two variables.
+    </span>
+
 The longer Sepal Length gets, the wider Sepal Width is.  The species Setosa seems to get wider faster in comparison to the other two species.
+
+<span style="color: green; font-size: 14pt">*Comments:*  
+        * You have two good graphs (and some questionable ones), but don't really answer how the distribution varies by species.
+    </span>
 
 ## Question 3
 Examine the distribution of Sepal.Width now for data in only the species virginica in the data set. What can you say about the distribution?
@@ -91,4 +120,8 @@ iris %>%
 ```
 
 Virginica's Sepal Width is mostly 2.75 to 3.0.
+
+<span style="color: green; font-size: 14pt">*Comments:*  
+        * Nice graph!
+    </span>
 
